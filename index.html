@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>音乐播放器</title>
+    <link rel="stylesheet" href="./css/audio.css" />
+</head>
+
+<body id="pageBody" style="background-image: url('./img/bg0.png');">
+    <!-- 上半部分 -->
+    <div class="upper-container">
+        <div class="record-container">
+            <div class="record-bg">
+                <div class="record-img"></div>
+            </div>
+        </div>
+        <div class="introduction-container">
+            <div class="music-title">音乐名称</div>
+            <div class="author-container">
+                作者：<span class="author-name">姓名</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 下半部分 -->
+    <div class="bottom-container">
+        <!-- 进度条 -->
+        <div class="progress"></div>
+        <!-- 控件 -->
+        <div class="controls">
+            <!-- 左 -->
+            <div class="left">
+                <span class="played-time">00:00</span>&nbsp;/&nbsp;<span class="audio-time">00:00</span>
+            </div>
+            <!-- 中 -->
+            <div class="center">
+                <div id="playMode" class="center-icon" title="切换模式"></div>
+                <div id="before-music" class="center-icon" title="上一首"></div>
+                <div id="playPause" class="center-icon" title="播放/暂停"></div>
+                <div id="last-music" class="center-icon" title="下一首"></div>
+                <div id="volumn" class="center-icon" title="静音/取消静音"></div>
+                <!-- 音量条 -->
+                <input type="range" id="volumn-togger" value="70" min="0" max="100" step="1" />
+            </div>
+            <!-- 右：功能区 (悬停交互) -->
+            <div class="right">
+                <div id="MV" class="bottom-icon" title="观看MV"></div>
+
+                <!-- 新增：倍速悬停容器 -->
+                <div class="speed-container">
+                    <div id="speed-display">1.0X</div>
+                    <!-- 隐藏的倍速菜单 -->
+                    <div class="speed-options">
+                        <div data-speed="2.0">2.0X</div>
+                        <div data-speed="1.5">1.5X</div>
+                        <div data-speed="1.25">1.25X</div>
+                        <div data-speed="1.0" class="active">1.0X</div>
+                        <div data-speed="0.5">0.5X</div>
+                    </div>
+                </div>
+
+                <div id="list" class="bottom-icon" title="播放列表"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 播放列表 -->
+    <div class="playlist-container hidden">
+        <div class="playlist-header">播放列表</div>
+        <ul id="playlist-ul"></ul>
+    </div>
+
+    <!-- MV 弹窗 -->
+    <div class="video-modal hidden">
+        <div class="video-box">
+            <div class="close-video">×</div>
+            <video id="mv-player" controls>您的浏览器不支持视频播放</video>
+        </div>
+    </div>
+
+    <script src="./js/audio.js"></script>
+</body>
+
+</html>
