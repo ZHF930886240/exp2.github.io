@@ -1,0 +1,471 @@
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Microsoft YaHei", sans-serif;
+    user-select: none;
+}
+
+html,
+body {
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(40px);
+    overflow: hidden;
+    transition: background-image 0.5s ease-in-out;
+}
+
+/* --- 上半部分 --- */
+.upper-container {
+    height: 80%;
+    padding-left: 10%;
+    display: flex;
+    align-items: center;
+}
+
+.record-container {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.record-bg {
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    background-color: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    border: 5px solid rgba(255, 255, 255, 0.05);
+}
+
+.record-img {
+    width: 300px;
+    height: 300px;
+    background-image: url('./../img/record0.jpg');
+    background-size: cover;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes rotateRecord {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.record-img.rotate {
+    animation: rotateRecord 20s linear infinite;
+}
+
+.introduction-container {
+    color: white;
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 50px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.music-title {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.author-container {
+    font-size: 1.8rem;
+    opacity: 0.9;
+}
+
+/* --- 底部控制区 --- */
+.bottom-container {
+    height: 20%;
+    padding: 0 40px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 进度条 */
+.progress {
+    width: 100%;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 25px;
+    cursor: pointer;
+    border-radius: 3px;
+    position: relative;
+}
+
+.progress:hover {
+    height: 8px;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #2ecc71;
+    width: 0%;
+    border-radius: 3px;
+    position: relative;
+}
+
+.progress-fill::after {
+    content: "";
+    width: 14px;
+    height: 14px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    right: -7px;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.progress:hover .progress-fill::after {
+    opacity: 1;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left {
+    color: #ddd;
+    font-weight: 400;
+    width: 150px;
+    font-size: 0.9rem;
+}
+
+.center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-icon {
+    width: 28px;
+    height: 28px;
+    margin: 0 15px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.center-icon:active {
+    transform: scale(0.9);
+}
+
+#playMode {
+    background-image: url('./../img/mode1.png');
+    background-size: cover;
+}
+
+#before-music {
+    background-image: url('./../img/上一首.png');
+    background-size: cover;
+}
+
+#last-music {
+    background-image: url('./../img/下一首.png');
+    background-size: cover;
+}
+
+#volumn {
+    background-image: url('./../img/音量.png');
+    background-size: cover;
+    width: 24px;
+    height: 24px;
+}
+
+#playPause {
+    width: 55px;
+    height: 55px;
+    background-image: url('./../img/继续播放.png');
+    background-size: cover;
+    margin: 0 25px;
+}
+
+/* 音量条 */
+#volumn-togger {
+    width: 100px;
+    height: 4px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+#volumn-togger::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    margin-top: 0;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+#volumn-togger:hover::-webkit-slider-thumb {
+    opacity: 1;
+}
+
+/* --- 右侧功能区 (重点更新) --- */
+.right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 250px;
+    position: relative;
+    /* 为子元素定位做准备 */
+}
+
+.bottom-icon {
+    width: 24px;
+    height: 24px;
+    margin-left: 25px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.bottom-icon:hover {
+    opacity: 1;
+}
+
+#MV {
+    background-image: url('./../img/MV.png');
+    background-size: cover;
+}
+
+#list {
+    background-image: url('./../img/列表.png');
+    background-size: cover;
+}
+
+/* ★★★ 倍速功能悬停样式 ★★★ */
+.speed-container {
+    position: relative;
+    margin-left: 25px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+/* 当前倍速显示 */
+#speed-display {
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    width: 45px;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+.speed-container:hover #speed-display {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #2ecc71;
+    color: #2ecc71;
+}
+
+/* 弹出菜单 */
+.speed-options {
+    position: absolute;
+    bottom: 100%;
+    /* 显示在上方 */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 5px 0;
+    margin-bottom: 10px;
+    /* 距离底部一点距离 */
+    width: 60px;
+    text-align: center;
+    display: none;
+    /* 默认隐藏 */
+    flex-direction: column;
+    z-index: 200;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* 悬停时显示菜单 */
+.speed-container:hover .speed-options {
+    display: flex;
+}
+
+/* 增加一个透明区域，防止鼠标移向菜单时消失 */
+.speed-container::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: transparent;
+}
+
+.speed-options div {
+    color: #bbb;
+    padding: 8px 0;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.speed-options div:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.speed-options div.active {
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+/* --- 播放列表 (位置与动画) --- */
+.playlist-container {
+    position: absolute;
+    bottom: 120px;
+    right: 20px;
+    width: 320px;
+    height: 400px;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    color: white;
+    overflow: hidden;
+    /* 关键：使用 opacity 和 visibility 进行过渡，而不是 transform 移走，方便悬停控制 */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 100;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    transform-origin: bottom right;
+}
+
+.playlist-container.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
+.playlist-header {
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+#playlist-ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 345px;
+    overflow-y: auto;
+}
+
+#playlist-ul li {
+    padding: 12px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+#playlist-ul li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#playlist-ul li.active {
+    color: #2ecc71;
+    background-color: rgba(46, 204, 113, 0.1);
+    font-weight: bold;
+}
+
+#playlist-ul::-webkit-scrollbar {
+    width: 5px;
+}
+
+#playlist-ul::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 3px;
+}
+
+/* MV 弹窗 */
+.video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-modal.hidden {
+    display: none;
+}
+
+.video-box {
+    position: relative;
+    width: 80%;
+    max-width: 900px;
+}
+
+.close-video {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 35px;
+}
+
+#mv-player {
+    width: 100%;
+    border-radius: 8px;
+    outline: none;
+}
